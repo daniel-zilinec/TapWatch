@@ -30,6 +30,7 @@
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
+typedef StaticSemaphore_t osStaticSemaphoreDef_t;
 /* USER CODE BEGIN PTD */
 
 /* USER CODE END PTD */
@@ -55,6 +56,14 @@ const osThreadAttr_t defaultTask_attributes = {
   .priority = (osPriority_t) osPriorityNormal,
   .stack_size = 128 * 4
 };
+/* Definitions for semaphore_button */
+osSemaphoreId_t semaphore_buttonHandle;
+osStaticSemaphoreDef_t myBinarySem01ControlBlock;
+const osSemaphoreAttr_t semaphore_button_attributes = {
+  .name = "semaphore_button",
+  .cb_mem = &myBinarySem01ControlBlock,
+  .cb_size = sizeof(myBinarySem01ControlBlock),
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -78,6 +87,10 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
+
+  /* Create the semaphores(s) */
+  /* creation of semaphore_button */
+  semaphore_buttonHandle = osSemaphoreNew(1, 1, &semaphore_button_attributes);
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
@@ -118,17 +131,22 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
+	  osSemaphoreAcquire(semaphore_buttonHandle, osWaitForever);
 	  led_blink_count(1, RED);
 	  led_blink_count(2, GREEN);
 	  led_blink_count(3, BLUE);
 	  osDelay(1000);
+
   }
   /* USER CODE END StartDefaultTask */
 }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	osSemaphoreRelease(semaphore_buttonHandle);
+}
 /* USER CODE END Application */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
