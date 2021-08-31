@@ -78,6 +78,17 @@ int main(void)
 
   /* USER CODE BEGIN Init */
 
+  // HAL_DBGMCU_EnableDBGStopMode();
+
+
+  if(   (LL_PWR_IsActiveFlag_C1SB() == 0)
+     || (LL_PWR_IsActiveFlag_C2SB() == 0)
+    )
+  {
+    /* Set the lowest low-power mode for CPU2: shutdown mode */
+    LL_C2_PWR_SetPowerMode(LL_PWR_MODE_SHUTDOWN);
+  }
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
