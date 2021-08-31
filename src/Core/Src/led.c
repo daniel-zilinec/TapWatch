@@ -50,6 +50,11 @@ void led_set_color(enum color_e color)
 			led_set_rgb(0, 0, 1);
 			break;
 
+		case PURPLE:
+			led_set_rgb(1, 0, 1);
+			break;
+
+
 	}
 }
 

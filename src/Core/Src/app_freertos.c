@@ -27,6 +27,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "led.h"
+#include "clock.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -128,15 +129,17 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
+	struct tm time;
+
   /* Infinite loop */
   for(;;)
   {
 	  osSemaphoreAcquire(semaphore_buttonHandle, osWaitForever);
-	  led_blink_count(1, RED);
-	  led_blink_count(2, GREEN);
-	  led_blink_count(3, BLUE);
-	  osDelay(1000);
-
+	  time = time_get();
+	  led_blink_count(time.tm_hour / 10, RED);
+	  led_blink_count(time.tm_hour % 10, GREEN);
+	  led_blink_count(time.tm_min / 10, BLUE);
+	  led_blink_count(time.tm_min % 10, PURPLE);
   }
   /* USER CODE END StartDefaultTask */
 }
