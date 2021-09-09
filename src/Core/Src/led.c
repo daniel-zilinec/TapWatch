@@ -10,18 +10,58 @@
 #include "cmsis_os.h"
 
 /**
+ * @brief Show "zero" on LED with given color
+ * @param color pre-defined color
+ */
+void led_blink_zero(enum color_e color)
+{
+	led_set_color(color);
+	osDelay(BLINK_LONG_DELAY);
+	led_set_color(BLACK);
+}
+
+/**
  * @brief Blink given times with pre-defined color
  * @param num number of blinks
  * @param color color enum
  */
 void led_blink_count(uint8_t num, enum color_e color)
 {
-	for (uint8_t i = 0; i < num; ++i)
+	if (num == 0)
 	{
-		led_set_color(color);
-		osDelay(BLINK_DELAY);
-		led_set_color(BLACK);
-		osDelay(BLINK_DELAY);
+		led_blink_zero(color);
+	}
+	else
+	{
+//		for (uint8_t i = 0; i < num; ++i)
+//		{
+//			led_set_color(color);
+//			osDelay(BLINK_SHORT_DELAY);
+//			led_set_color(BLACK);
+//			osDelay(BLINK_SHORT_DELAY);
+//		}
+
+		while (num >= 2)
+		{
+			led_set_color(color);
+			osDelay(BLINK_SUPER_SHORT_DELAY);
+			led_set_color(BLACK);
+			osDelay(BLINK_SUPER_SHORT_DELAY);
+			led_set_color(color);
+			osDelay(BLINK_SUPER_SHORT_DELAY);
+			led_set_color(BLACK);
+			osDelay(BLINK_LONG_DELAY);
+			num -= 2;
+		}
+
+		if (num)
+		{
+			led_set_color(color);
+			osDelay(BLINK_SHORT_DELAY);
+			led_set_color(BLACK);
+			osDelay(BLINK_SHORT_DELAY);
+		}
+
 	}
 }
 

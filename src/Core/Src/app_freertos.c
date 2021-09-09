@@ -160,10 +160,18 @@ void StartDefaultTask(void *argument)
   {
 	  osSemaphoreAcquire(semaphore_buttonHandle, osWaitForever);
 	  time = time_get();
+	  osDelay(BLINK_PAUSE_DELAY);
 	  led_blink_count(time.tm_hour / 10, RED);
+	  osDelay(BLINK_PAUSE_DELAY);
 	  led_blink_count(time.tm_hour % 10, GREEN);
+	  osDelay(BLINK_PAUSE_DELAY);
 	  led_blink_count(time.tm_min / 10, BLUE);
-	  led_blink_count(time.tm_min % 10, PURPLE);
+
+	  // No minutes
+	  // osDelay(BLINK_PAUSE_DELAY);
+	  // led_blink_count(time.tm_min % 10, PURPLE);
+
+	  osSemaphoreAcquire(semaphore_buttonHandle, 0);		// acquire semaphore if the button was pressed during LED blinking
 
 	  // HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
 	  // HAL_PWR_EnterSTANDBYMode();
