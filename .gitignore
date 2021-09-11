@@ -72,7 +72,9 @@ local.properties
 .sts4-cache/
 
 # End of https://www.gitignore.io/api/altium,eclipse
-*.docx#
-/src/Debug/
 
+/src/BLE_p2pServer/Debug/
+/src/WB15-Hello_world/Debug/
+
+*.docx#
 *.ods#
