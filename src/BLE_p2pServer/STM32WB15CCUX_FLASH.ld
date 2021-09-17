@@ -22,7 +22,7 @@
 *****************************************************************************
 ** @attention
 **
-** <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
+** <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
 ** All rights reserved.</center></h2>
 **
 ** This software component is licensed by ST under BSD 3-Clause license,
@@ -37,7 +37,7 @@
 ENTRY(Reset_Handler)
 
 /* Highest address of the user mode stack */
-_estack = 0x20003000;    /* end of RAM */
+_estack = ORIGIN(RAM1) + LENGTH(RAM1);    /* end of RAM1 */
 /* Generate a link error if heap and stack don't fit into RAM */
 _Min_Heap_Size = 0x400 ;      /* required amount of heap  */
 _Min_Stack_Size = 0x1000 ;   /* required amount of stack */
@@ -46,7 +46,7 @@ _Min_Stack_Size = 0x1000 ;   /* required amount of stack */
 MEMORY
 {
 FLASH (rx)                 : ORIGIN = 0x08000000, LENGTH = 110K
-RAM1 (xrw)                 : ORIGIN = 0x20000008, LENGTH = 0x2FF8
+RAM1 (xrw)                 : ORIGIN = 0x20000004, LENGTH = 0x2FFC
 RAM_SHARED (xrw)           : ORIGIN = 0x20030000, LENGTH = 10K
 }
 
