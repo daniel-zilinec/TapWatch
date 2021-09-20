@@ -75,6 +75,7 @@ local.properties
 
 /src/BLE_p2pServer/Debug/
 /src/WB15-Hello_world/Debug/
+/src/WB15_Nucleo_test/Debug/
 
 *.docx#
 *.ods#
