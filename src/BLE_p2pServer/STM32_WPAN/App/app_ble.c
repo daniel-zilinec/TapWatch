@@ -1010,7 +1010,7 @@ static void Adv_Request(APP_BLE_ConnStatus_t New_Status)
      * It does not hurt if the timer was not running
      */
     HW_TS_Stop(BleApplicationContext.Advertising_mgr_timer_Id);
-
+    printf("Not hello world\n");
     APP_DBG_MSG("First index in %d state \n", BleApplicationContext.Device_Connection_Status);
 
     if ((New_Status == APP_BLE_LP_ADV)
