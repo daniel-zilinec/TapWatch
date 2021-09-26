@@ -227,7 +227,7 @@ uint8_t index_con_int, mutex;
  * Advertising Data
  */
 #if (P2P_SERVER1 != 0)
-static const char local_name[] = { AD_TYPE_COMPLETE_LOCAL_NAME ,'P','2','P','S','R','V','1'};
+static const char local_name[] = { AD_TYPE_COMPLETE_LOCAL_NAME ,'T','A','P'};
 uint8_t manuf_data[14] = {
     sizeof(manuf_data)-1, AD_TYPE_MANUFACTURER_SPECIFIC_DATA,
     0x01/*SKD version */,
@@ -922,7 +922,7 @@ static void Ble_Hci_Gap_Gatt_Init(void){
 
   if (role > 0)
   {
-    const char *name = "P2PSRV1";
+    const char *name = "TAP";
     aci_gap_init(role,
 #if ((CFG_BLE_ADDRESS_TYPE == RESOLVABLE_PRIVATE_ADDR) || (CFG_BLE_ADDRESS_TYPE == NON_RESOLVABLE_PRIVATE_ADDR))
                  2,
@@ -1010,7 +1010,7 @@ static void Adv_Request(APP_BLE_ConnStatus_t New_Status)
      * It does not hurt if the timer was not running
      */
     HW_TS_Stop(BleApplicationContext.Advertising_mgr_timer_Id);
-
+    printf("Not hello world\n");
     APP_DBG_MSG("First index in %d state \n", BleApplicationContext.Device_Connection_Status);
 
     if ((New_Status == APP_BLE_LP_ADV)
