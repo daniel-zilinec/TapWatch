@@ -82,6 +82,16 @@ void P2PS_STM_App_Notification(P2PS_STM_App_Notification_evt_t *pNotification)
 
     case P2PS_STM_WRITE_EVT:
 /* USER CODE BEGIN P2PS_STM_WRITE_EVT */
+    {
+    	uint8_t len = pNotification->DataTransfered.Length;
+    	// APP_DBG_MSG("Write!!! 0x%x%x\n", pNotification->DataTransfered.pPayload[0], pNotification->DataTransfered.pPayload[1]);
+    	APP_DBG_MSG("Written %d bytes\n", len);
+
+    	for (uint8_t i; i < len; ++i)
+    	{
+    		APP_DBG_MSG("0x%x\n",pNotification->DataTransfered.pPayload[i]);
+    	}
+    }
 
 /* USER CODE END P2PS_STM_WRITE_EVT */
       break;
